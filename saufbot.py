@@ -8,7 +8,6 @@ from telegram.ext import *
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 httpx_logger = logging.getLogger('httpx')
 httpx_logger.setLevel(logging.WARNING) #prevents 10-second spam that http is alright
-logging.info(f"Logging set")
 
 # Define supported languages
 SUPPORTED_LANGUAGES = ["en", "de"]

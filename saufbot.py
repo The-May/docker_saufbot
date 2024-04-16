@@ -6,6 +6,7 @@ from telegram.ext import *
 
 # Configure logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+logging.error("Test")
 
 # Define supported languages
 SUPPORTED_LANGUAGES = ["en", "de"]

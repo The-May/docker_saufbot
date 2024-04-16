@@ -3,6 +3,8 @@ import random
 import logging
 from telegram import *
 from telegram.ext import *
+#from telegram import InputMediaPhoto
+#from telegram.ext import CommandHandler, Updater
 
 # Configure logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -29,15 +31,10 @@ except Exception as e:
     logging.error(f"Failed to create Telegram bot application: {e}")
     exit()
 
-
-
 # Check if specified language is supported
 if use_language not in SUPPORTED_LANGUAGES:
     logging.error(f"Unsupported language '{use_language}'. Supported languages are: {', '.join(SUPPORTED_LANGUAGES)}")
     exit()
-# Create Updater and Dispatcher
-updater = Updater(token=telegram_bot_token, use_context=True)
-dispatcher = updater.dispatcher
 
 async def saufen(update, context):
     # Roll three 6-sided dice

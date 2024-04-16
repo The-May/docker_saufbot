@@ -21,8 +21,5 @@ RUN cp /tmp/saufbot.py /app/saufbot.py
 # Install Python dependencies using the requirements.txt file
 RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
-# Clean up temporary files
-RUN rm /tmp/saufbot.py /tmp/requirements.txt
-
 # Command to run the Python application
 CMD ["python", "saufbot.py"]

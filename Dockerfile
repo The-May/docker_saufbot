@@ -14,10 +14,9 @@ RUN apt-get update && \
 
 # Set the working directory to where the application files will reside
 WORKDIR /app
-
 # Clone the public Git repository into the container root directory
 RUN git clone https://github.com/The-May/docker_saufbot.git /tmp/
-
+RUN ls /tmp/
 # Pull the latest changes from the repository
 #RUN git pull origin main
 COPY /tmp/saufbot.py /app/

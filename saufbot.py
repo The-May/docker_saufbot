@@ -6,14 +6,15 @@ from telegram.ext import *
 
 # Configure logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
-logging.error("Test")
 
 # Define supported languages
 SUPPORTED_LANGUAGES = ["en", "de"]
 
 # Get environment variables
 use_language = os.environ.get('USE_LANGUAGE')
+logging.info(f"Language: {use_language}")
 telegram_bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
+logging.info(f"Bot Token: {telegram_bot_token}")
 
 # Check for missing environment variables
 if not use_language:
@@ -49,9 +50,9 @@ async def saufen(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     dice3_file = f"./pictures/{lang_var}/3_{dice3}.png"
 
     dice_group = [
+        InputMediaPhoto(media=open(dice3_file, "rb")),
         InputMediaPhoto(media=open(dice1_file, "rb")),
-        InputMediaPhoto(media=open(dice2_file, "rb")),
-        InputMediaPhoto(media=open(dice3_file, "rb"))
+        InputMediaPhoto(media=open(dice2_file, "rb"))
     ]
 
     await context.bot.send_media_group(chat_id=update.effective_chat.id, media=dice_group)

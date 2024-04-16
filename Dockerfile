@@ -4,19 +4,25 @@ FROM python:latest
 # Set environment variables
 ENV PYTHONUNBUFFERED 1
 
-# Install curl
+# Install curl to download files
 RUN apt-get update && \
     apt-get install -y curl
 
-# Set the working directory to where the application files will reside
+# Set the working directory
 WORKDIR /app
 
-# Download saufbot.py and requirements.txt from the GitHub repository
-RUN curl -LJO https://raw.githubusercontent.com/The-May/docker_saufbot/main/saufbot.py
-RUN curl -LJO https://raw.githubusercontent.com/The-May/docker_saufbot/main/requirements.txt
+# Download saufbot.py and requirements.txt into /tmp/
+RUN curl -o /tmp/saufbot.py https://raw.githubusercontent.com/The-May/docker_saufbot/main/saufbot.py
+RUN curl -o /tmp/requirements.txt https://raw.githubusercontent.com/The-May/docker_saufbot/main/requirements.txt
+
+# Copy files from /tmp/ to /app/
+RUN cp /tmp/saufbot.py /app/saufbot.py
 
 # Install Python dependencies using the requirements.txt file
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+# Clean up temporary files
+RUN rm /tmp/saufbot.py /tmp/requirements.txt
 
 # Command to run the Python application
 CMD ["python", "saufbot.py"]

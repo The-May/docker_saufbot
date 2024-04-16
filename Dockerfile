@@ -9,20 +9,20 @@ RUN apt-get update && \
     apt-get install -y git
 
 # Clone the public Git repository into the container root directory
-RUN git clone https://github.com/The-May/docker_saufbot.git /
+RUN git clone https://github.com/The-May/docker_saufbot.git /git/
 
-# Set the working directory to the cloned repository
-WORKDIR /docker_saufbot
+# Set the working directory to where the application files will reside
+WORKDIR /app
 
-# Copy the requirements file to the working directory
-COPY requirements.txt /docker_saufbot/
+# Copy the requirements file from the cloned repository to the working directory
+COPY /git/requirements.txt /app/
 
 # Install Python dependencies using the requirements.txt file
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Copy the main bot script and the 'pictures' directory into the container
-COPY saufbot.py /docker_saufbot/
-COPY pictures /docker_saufbot/pictures
+COPY /git/saufbot.py /app/
+COPY /git/pictures /app/pictures
 
 # Command to run the Python application
 CMD ["python", "saufbot.py"]

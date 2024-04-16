@@ -1,4 +1,4 @@
-#v1
+#v2
 # Use the latest version of the official Python runtime as base image
 FROM python:latest
 
@@ -20,6 +20,9 @@ RUN git pull origin main
 
 # Install Python dependencies using the requirements.txt file
 RUN pip install --no-cache-dir -r /app/requirements.txt
+
+# Clean up unnecessary files after pulling from Git
+RUN rm -rf /app/.git  # Remove the .git directory to reduce image size
 
 # Command to run the Python application
 CMD ["python", "saufbot.py"]

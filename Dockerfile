@@ -4,22 +4,26 @@ FROM python:latest
 # Set environment variables
 ENV PYTHONUNBUFFERED 1
 
-# Install curl to download files
+# Install git to enable fetching from Git repositories
 RUN apt-get update && \
-    apt-get install -y curl
+    apt-get install -y git
 
-# Set the working directory
+# Set the working directory to where the application files will reside
 WORKDIR /app
 
-# Download saufbot.py and requirements.txt into /tmp/
-RUN curl -o /tmp/saufbot.py https://raw.githubusercontent.com/The-May/docker_saufbot/main/saufbot.py
-RUN curl -o /tmp/requirements.txt https://raw.githubusercontent.com/The-May/docker_saufbot/main/requirements.txt
+# Clone the repository into a temporary directory
+RUN git clone https://github.com/The-May/docker_saufbot.git /tmp/docker_saufbot
 
-# Copy files from /tmp/ to /app/
-RUN cp /tmp/saufbot.py /app/saufbot.py
+# Copy specific files and directories from the cloned repository
+COPY /tmp/docker_saufbot/saufbot.py /app/saufbot.py
+COPY /tmp/docker_saufbot/requirements.txt /app/requirements.txt
+COPY /tmp/docker_saufbot/pictures /app/pictures
 
 # Install Python dependencies using the requirements.txt file
-RUN pip install --no-cache-dir -r /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
+
+# Clean up unnecessary files
+RUN rm -rf /tmp/docker_saufbot
 
 # Command to run the Python application
 CMD ["python", "saufbot.py"]

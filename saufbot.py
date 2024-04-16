@@ -1,8 +1,8 @@
 import os
 import random
 import logging
-from telegram import InputMediaPhoto
-from telegram.ext import CommandHandler, Updater
+from telegram import *
+from telegram.ext import *
 
 # Configure logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -18,16 +18,23 @@ telegram_bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
 if not use_language:
     logging.error("Missing environment variable: USE_LANGUAGE. Please set USE_LANGUAGE.")
     exit()
-
 if not telegram_bot_token:
     logging.error("Missing environment variable: TELEGRAM_BOT_TOKEN. Please set TELEGRAM_BOT_TOKEN.")
     exit()
+
+try:
+    application = Application.builder().token(telegram_bot_token).build()
+    logging.info("Telegram bot started successfully.")
+except Exception as e:
+    logging.error(f"Failed to create Telegram bot application: {e}")
+    exit()
+
+
 
 # Check if specified language is supported
 if use_language not in SUPPORTED_LANGUAGES:
     logging.error(f"Unsupported language '{use_language}'. Supported languages are: {', '.join(SUPPORTED_LANGUAGES)}")
     exit()
-
 # Create Updater and Dispatcher
 updater = Updater(token=telegram_bot_token, use_context=True)
 dispatcher = updater.dispatcher
@@ -52,9 +59,7 @@ async def saufen(update, context):
 
     await context.bot.send_media_group(chat_id=update.effective_chat.id, media=dice_group)
 
-# Register command handler
-dispatcher.add_handler(CommandHandler("saufen", saufen))
+application.add_handler(CommandHandler("saufen", saufen))
 
-# Start polling
-updater.start_polling()
-updater.idle()
+# Run the bot until the user presses Ctrl-C
+application.run_polling(drop_pending_updates = True)

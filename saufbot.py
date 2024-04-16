@@ -3,8 +3,6 @@ import random
 import logging
 from telegram import *
 from telegram.ext import *
-#from telegram import InputMediaPhoto
-#from telegram.ext import CommandHandler, Updater
 
 # Configure logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -36,7 +34,8 @@ if use_language not in SUPPORTED_LANGUAGES:
     logging.error(f"Unsupported language '{use_language}'. Supported languages are: {', '.join(SUPPORTED_LANGUAGES)}")
     exit()
 
-async def saufen(update, context):
+async def saufen(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+
     # Roll three 6-sided dice
     dice1 = random.randint(1, 6)
     dice2 = random.randint(1, 6)
@@ -57,6 +56,4 @@ async def saufen(update, context):
     await context.bot.send_media_group(chat_id=update.effective_chat.id, media=dice_group)
 
 application.add_handler(CommandHandler("saufen", saufen))
-
-# Run the bot until the user presses Ctrl-C
 application.run_polling(drop_pending_updates = True)

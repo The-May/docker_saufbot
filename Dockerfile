@@ -1,34 +1,22 @@
-#v2
 # Use the latest version of the official Python runtime as base image
 FROM python:latest
 
 # Set environment variables
 ENV PYTHONUNBUFFERED 1
 
-# Install git to enable fetching from Git repositories
+# Install curl
 RUN apt-get update && \
-    apt-get install -y git
-
-# Clean up everything in the /app/ directory in case there might be older files that mess with the newer version
-#RUN rm -rf /app/*
+    apt-get install -y curl
 
 # Set the working directory to where the application files will reside
 WORKDIR /app
-# Clone the public Git repository into the container root directory
-RUN git clone https://github.com/The-May/docker_saufbot.git /tmp/
-# Pull the latest changes from the repository
-RUN git pull origin main
-COPY /tmp/saufbot.py /app/
+
+# Download saufbot.py and requirements.txt from the GitHub repository
+RUN curl -LJO https://raw.githubusercontent.com/The-May/docker_saufbot/main/saufbot.py
+RUN curl -LJO https://raw.githubusercontent.com/The-May/docker_saufbot/main/requirements.txt
 
 # Install Python dependencies using the requirements.txt file
-RUN pip install --no-cache-dir -r /tmp/requirements.txt
-
-# Clean up unnecessary files after pulling from Git
-#RUN rm -rf /app/.git  # Remove the .git directory to reduce image size
-#RUN rm -rf /app/Dockerfile  # Remove the Dockerfile copied from the repository
-#RUN rm -rf /app/README.md
-#RUN rm -rf /app/requirements.txt 
-RUN rm -rf /tmp/*
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Command to run the Python application
 CMD ["python", "saufbot.py"]

@@ -6,6 +6,8 @@ from telegram.ext import *
 
 # Configure logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+httpx_logger = logging.getLogger('httpx') # sonst macht der andauernd http requests....
+httpx_logger.setLevel(logging.WARNING)
 
 # Define supported languages
 SUPPORTED_LANGUAGES = ["en", "de"]

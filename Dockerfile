@@ -20,8 +20,10 @@ COPY /git/requirements.txt /app/
 # Install Python dependencies using the requirements.txt file
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
-# Copy the main bot script and the 'pictures' directory into the container
+# Copy the main bot script from the cloned repository to the working directory
 COPY /git/saufbot.py /app/
+
+# Copy the 'pictures' directory (including subfolders) from the cloned repository to /app/pictures in the container
 COPY /git/pictures /app/pictures
 
 # Command to run the Python application

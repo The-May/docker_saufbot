@@ -23,7 +23,7 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 # Copy the main bot script from the cloned repository to the working directory
 COPY /git/saufbot.py /app/
 
-# Copy the 'pictures' directory (including subfolders) from the cloned repository to /app/pictures in the container
+# Copy the 'pictures' directory from the cloned repository to /app/pictures in the container
 COPY /git/pictures /app/pictures
 
 # Command to run the Python application

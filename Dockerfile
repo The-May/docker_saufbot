@@ -9,6 +9,9 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get update && \
     apt-get install -y git
 
+# Clean up everything in the /app/ directory
+RUN rm -rf /app/*
+
 # Set the working directory to where the application files will reside
 WORKDIR /app
 
@@ -23,7 +26,7 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Clean up unnecessary files after pulling from Git
 RUN rm -rf /app/.git  # Remove the .git directory to reduce image size
-RUN rm -rf /app/Dockerfile
+RUN rm -rf /app/Dockerfile  # Remove the Dockerfile copied from the repository
 
 # Command to run the Python application
 CMD ["python", "saufbot.py"]

@@ -15,7 +15,7 @@ WORKDIR /app
 RUN git clone https://github.com/The-May/docker_saufbot.git /tmp/
 
 # Copy specific files and directories from the cloned repository
-COPY /tmp/saufbot.py /app/saufbot.py
+RUN cp /tmp/saufbot.py /app/saufbot.py
 #COPY /tmp/docker_saufbot/requirements.txt /app/requirements.txt
 #COPY /tmp/pictures /app/pictures
 

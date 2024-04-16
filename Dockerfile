@@ -9,7 +9,7 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get update && \
     apt-get install -y git
 
-# Clean up everything in the /app/ directory
+# Clean up everything in the /app/ directory in case there might be older files that mess with the newer version
 RUN rm -rf /app/*
 
 # Set the working directory to where the application files will reside

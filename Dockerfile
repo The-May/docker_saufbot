@@ -16,7 +16,7 @@ RUN git clone https://github.com/The-May/docker_saufbot.git /tmp/
 
 # Copy specific files and directories from the cloned repository
 RUN cp /tmp/saufbot.py /app/saufbot.py
-RUN cp /tmp/pictures /app/pictures
+RUN cp -r /tmp/pictures /app/pictures
 
 # Install Python dependencies using the requirements.txt file
 RUN pip install --no-cache-dir -r /tmp/requirements.txt

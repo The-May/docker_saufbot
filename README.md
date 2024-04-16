@@ -34,3 +34,6 @@ alternatively for testing (for example in vscode):
 - `$env:USE_LANGUAGE="de"` 
 - `$env:TELEGRAM_BOT_TOKEN="a:b"`
 5.  start saufbot.py with python
+
+##protip:
+When updating, use `docker builder prune --all --force` before using `docker-compose up --build --force-recreate`

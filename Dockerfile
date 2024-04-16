@@ -15,14 +15,14 @@ WORKDIR /app
 RUN git clone https://github.com/The-May/docker_saufbot.git /app/public_repo
 
 # Copy the requirements file to the working directory
-COPY /app/public_repo/requirements.txt /app/
+COPY public_repo/requirements.txt /app/
 
 # Install Python dependencies using the specific path to requirements.txt
 RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Copy the main bot script and the 'pictures' directory into the container
-COPY /app/public_repo/saufbot.py /app/
-COPY /app/public_repo/pictures /app/pictures
+COPY public_repo/saufbot.py /app/
+COPY public_repo/pictures /app/pictures
 
 # Command to run the Python application
 CMD ["python", "saufbot.py"]

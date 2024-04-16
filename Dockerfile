@@ -27,6 +27,8 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 # Clean up unnecessary files after pulling from Git
 RUN rm -rf /app/.git  # Remove the .git directory to reduce image size
 RUN rm -rf /app/Dockerfile  # Remove the Dockerfile copied from the repository
+RUN rm -rf /app/README.md
+RUN rm -rf /app/requirements.txt 
 
 # Command to run the Python application
 CMD ["python", "saufbot.py"]

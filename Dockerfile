@@ -8,21 +8,21 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get update && \
     apt-get install -y git
 
-# Create and set the working directory in the container
-WORKDIR /app
+# Clone the public Git repository into the container root directory
+RUN git clone https://github.com/The-May/docker_saufbot.git /
 
-# Clone the public Git repository into the container
-RUN git clone https://github.com/The-May/docker_saufbot.git /app/public_repo
+# Set the working directory to the cloned repository
+WORKDIR /docker_saufbot
 
 # Copy the requirements file to the working directory
-COPY public_repo/requirements.txt /app/
+COPY requirements.txt /docker_saufbot/
 
-# Install Python dependencies using the specific path to requirements.txt
-RUN pip install --no-cache-dir -r /app/requirements.txt
+# Install Python dependencies using the requirements.txt file
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the main bot script and the 'pictures' directory into the container
-COPY public_repo/saufbot.py /app/
-COPY public_repo/pictures /app/pictures
+COPY saufbot.py /docker_saufbot/
+COPY pictures /docker_saufbot/pictures
 
 # Command to run the Python application
 CMD ["python", "saufbot.py"]

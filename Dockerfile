@@ -12,15 +12,15 @@ RUN apt-get update && \
 WORKDIR /app
 
 # Clone the repository into a temporary directory
-RUN git clone https://github.com/The-May/docker_saufbot.git /tmp/docker_saufbot
+RUN git clone https://github.com/The-May/docker_saufbot.git /tmp/
 
 # Copy specific files and directories from the cloned repository
-COPY /tmp/docker_saufbot/saufbot.py /app/saufbot.py
-COPY /tmp/docker_saufbot/requirements.txt /app/requirements.txt
-COPY /tmp/docker_saufbot/pictures /app/pictures
+#COPY /tmp/saufbot.py /app/saufbot.py
+#COPY /tmp/docker_saufbot/requirements.txt /app/requirements.txt
+#COPY /tmp/pictures /app/pictures
 
 # Install Python dependencies using the requirements.txt file
-RUN pip install --no-cache-dir -r /app/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
 
 # Clean up unnecessary files
 RUN rm -rf /tmp/docker_saufbot

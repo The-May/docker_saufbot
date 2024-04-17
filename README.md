@@ -1,4 +1,7 @@
+This bot encourages you and your friends to drink beverages like WATER.
+Currently only in german, but a placeholder for english and other languages have been created.
 
+The bot is available in https://t.me/tg_saufbot and can be triggered with /saufen
 
  1. Create docker-compose.yml file in your favourite directory:
 
